@@ -1,41 +1,70 @@
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { megasenaTheme, quinaTheme, timemaniaTheme } from '../../styles/theme';
+import styled from 'styled-components'
 
-const Menu = () => {
-    const history = useNavigate();
-    const [classMega,setClassMega] = useState(false);
-    const [classLoto,setClassLoto] = useState(false);
-    const [classQuina,setClassQuina] = useState(false);
+export function Menu() {
 
-    function handlePath(caminho:string){
-        if (caminho === 'lotofacil' ) {
-            history('/lotofacil')
-            setClassLoto(true)
-            setClassMega(false)
-            setClassQuina(false)
-        }else if (caminho === 'megasena' ) {
-            history('/megasena')
-            setClassLoto(false)
-            setClassQuina(false)
-            setClassMega(true)
-        }
-        else {
-            history('/quina')
-            setClassLoto(false)
-            setClassMega(false)
-            setClassQuina(true)
-        }
+    const navigate = useNavigate();
+    const location = useLocation().pathname;
+
+    function handleNavigateToTimeMania(){
+        navigate('/timemania')
+    }
+
+    function handleNavigateToMegasena(){
+        navigate('/megasena')
+    }
+
+    function handleNavigateToQuina(){
+        navigate('/quina')
     }
 
     return (
-        <nav className='headerNav'>
-            <ul>
-                <li className={!classLoto ? "loto" : "Active"} onClick={() => handlePath('lotofacil')}>Lotofácil</li>
-                <li className={!classMega ? "mega" : "Active"} onClick={() => handlePath('megasena')}>Megasena</li>
-                <li className={!classQuina ? "quina" : "Active"} onClick={() => handlePath('quina')}>Quina</li>
-            </ul>
-        </nav>
+        <ContainerSld>
+            <UlSld>
+                <LiSld onClick={handleNavigateToTimeMania}>
+                    {location === '/timemania' ? <SelectedSld>Timemania</SelectedSld> : <TitleSld color={timemaniaTheme.loteria}>Timemania</TitleSld>}
+                </LiSld>
+                <LiSld onClick={handleNavigateToMegasena}>
+                    {location === '/megasena' ? <SelectedSld>Megasena</SelectedSld> : <TitleSld color={megasenaTheme.loteria}>Megasena</TitleSld>}
+                </LiSld>
+                <LiSld onClick={handleNavigateToQuina}>
+                    {location === '/quina' ? <SelectedSld>Quina</SelectedSld> : <TitleSld color={quinaTheme.loteria}>Quina</TitleSld>}
+                </LiSld>
+            </UlSld>
+        </ContainerSld>
     );
 }
 
-export {Menu};
+const ContainerSld = styled.nav`
+    display: inline-block;
+    margin: 0 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 20px;
+`;
+
+const UlSld = styled.ul`
+    display: inline-block;
+    margin: 0 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 20px;
+`;
+
+const LiSld = styled.li`
+    display: inline-block;
+    margin: 0 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 20px;
+`;
+
+const SelectedSld = styled.p`
+    color: #aaa;
+    text-decoration: none;
+`
+
+const TitleSld = styled.p`
+    color: ${(props) => props.color}
+`

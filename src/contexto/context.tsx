@@ -1,29 +1,28 @@
-
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import loterias from "../services/loterias";
 import { loteriaProps, Props } from "../types";
-import { Carregando } from "../components/carregando/carregando";
+import { Carregando } from "../components/carregando";
 
 const Contexto = createContext({} as loteriaProps);
 
-function Provider({children}:any) {
-    const [megasena, setMegasena] = useState({} as Props);
-    const [lotofacil, setLotofacil] = useState({} as Props);
-    const [quina, setQuina] = useState({} as Props);
-    const [carregando, setCarregando] = useState(true);
+function Provider({ children }:any) {
+    const [megasena,setMegasena] = useState({} as Props)
+    const [timemania,setTimemania] = useState({} as Props)
+    const [quina,setQuina] = useState({} as Props)
+    const [carregando,setCarregando] = useState(true)
     
     useEffect(() => {
         (
         async () => {
             const resp = await loterias.get()
             setMegasena(resp.megasena);
-            setLotofacil(resp.lotofacil);
+            setTimemania(resp.timemania);
             setQuina(resp.quina)
             setCarregando(false);
         })();
     },[])
 
-    const CheckCarregando = () => {
+      const CheckCarregando = () => {
         if(carregando){
           return <Carregando />
         }else{
@@ -32,7 +31,7 @@ function Provider({children}:any) {
       }
 
     return (
-        <Contexto.Provider value={{ megasena, lotofacil,quina, carregando}}>
+        <Contexto.Provider value={{ megasena, timemania, quina, carregando }}>
             <CheckCarregando />
         </Contexto.Provider>
     );

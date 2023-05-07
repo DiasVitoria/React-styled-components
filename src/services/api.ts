@@ -9,4 +9,4 @@ const api: AxiosInstance = axios.create({
     }
 })
 
-export default api;
+export default api

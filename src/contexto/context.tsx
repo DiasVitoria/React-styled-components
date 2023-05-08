@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
+import { Carregando } from "../components/carregando";
 import loterias from "../services/loterias";
 import { loteriaProps, Props } from "../types";
-import { Carregando } from "../components/carregando";
 
 const Contexto = createContext({} as loteriaProps);
 

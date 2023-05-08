@@ -1,5 +1,5 @@
-import { PageQuina } from "./quina"
-import { PageMegasena } from "./megasena"
-import { PageTimemania } from "./timemania"
+import { Quina } from "./quina"
+import { Megasena } from "./megasena"
+import { Timemania } from "./timemania"
 
-export { PageQuina, PageTimemania, PageMegasena }
+export { Quina, Timemania, Megasena }

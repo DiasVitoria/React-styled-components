@@ -1,22 +1,37 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { megasenaTheme, quinaTheme, timemaniaTheme } from '../../styles/theme';
 import styled from 'styled-components'
+import { UseTheme } from '../../hooks';
+import { useEffect } from 'react';
 
 export function Menu() {
-
     const navigate = useNavigate();
     const location = useLocation().pathname;
+    const { setTheme } = UseTheme()
 
-    function handleNavigateToTimeMania(){
+    useEffect(() => {
+        if (location == '/timemania') {
+            setTheme(timemaniaTheme)
+        } else if (location == '/megasena') {
+            setTheme(megasenaTheme)
+        } else {
+            setTheme(quinaTheme)
+        }
+    }, [])
+
+    function handleNavigateToTimeMania() {
         navigate('/timemania')
+        setTheme(timemaniaTheme)
     }
 
-    function handleNavigateToMegasena(){
+    function handleNavigateToMegasena() {
         navigate('/megasena')
+        setTheme(megasenaTheme)
     }
 
-    function handleNavigateToQuina(){
+    function handleNavigateToQuina() {
         navigate('/quina')
+        setTheme(quinaTheme)
     }
 
     return (
